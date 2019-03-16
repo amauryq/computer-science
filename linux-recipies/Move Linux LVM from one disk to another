@@ -1,0 +1,104 @@
+Tenemos un disco de 200GB /dev/sda y un disco de 80GB /dev/sdb, el disco a copiar tiene dos particiones /dev/sda1 y /dev/sda2
+En /dev/sda1 lo tenemos montado en /boot
+En /dev/sda2 tenemos un volume group vg_centos65 con tres lv
+/dev/mapper/vg_centos65-lv_root
+ /dev/mapper/vg_centos65-lv_home
+/dev/mapper/vg_centos65-lv_swap
+
+Comandos utiles
+
+vgs
+lvs
+vgdisplay
+pvdisplay
+
+Para /dev/sda2
+
+Si se añade un nuevo disco al grupo de volúmenes, puedes mover los lv a ese nuevo disco; pero para eso primero los lv tienen que caber en el disco nuevo y no lo calcula por espacio usado, sino por tamaño del fs, entonces hay q hacerle resize; pero para hacer resize2fs tienes que tener desmontado el fs, por tanto hay que arrancar desde un CD.
+
+Despues de hacer el resize2fs, tienes que hacer lvreduce del lv para reducirlo al mismo tamaño si no, te deja el lv del tamaño original y no te lo deja mover al disco nuevo, o eso, o prueba con e2fsadm, que dependiendo de la versión de LVM que tengas hace las dos cosas el solo.
+
+La cosa esta en que no te vale hacerlo solo con el lv del /home, tienes que hacerlo en todo el vg para poder quitar el disco
+you can execute the pvmove command on the device you want to remove with no other options and the extents will be distributed to the other devices.
+
+y luego solo te queda instalar el GRUB en sdb en el master boot record de sdb y
+cuando quites el actual, el nuevo, que ahora se llama sdb, pasará a llamarse sda
+
+Procedure
+
+In the VM we need to create the new hard disk with the required smaller size (80G) using Thick Provision Lazy Zeroed
+
+Boot from a Live CD and do not mount anything yet
+
+Prepare the new target hard drive and create partition /dev/sdb1 for boot (1-64 cyl) and /dev/sdb2 for / and /home (65 - end)
+
+# fdisk -l
+# fdisk /dev/sdb
+comand p to list current partitions, comand n to create new partitions
+command t to change partitions type sdb1=Linux(83) and sdb2=LVM(8e)
+command w to save changes
+
+Make any logical volumes available to the Linux
+# vgchange -a y
+Force a file system check on the volume in question:
+# e2fsck -f /dev/vg_centos65/lv_root
+# e2fsck -f /dev/vg_centos65/lv_home
+Resize the actual file system: the size is 85% of the final size, this operation could be very time consuming
+# resize2fs /dev/vg_centos65/lv_root 28G
+# resize2fs /dev/vg_centos65/lv_home 32G
+
+Reduce the size of the logical volume that fits in the new hard drive (take into account the swap file:
+# lvreduce -L 32G /dev/vg_centos65/lv_root
+# lvreduce -L 36G /dev/vg_centos65/lv_home
+
+
+Grow the file system so that it uses all available space on the logical volume:
+# resize2fs /dev/vg_centos65/lv_root
+# resize2fs /dev/vg_centos65/lv_home
+Prepare  partition 2 (/dev/sdb2) inside new disk /dev/sdb to be used as LVM
+# pvcreate /dev/sdb2
+Add the new disk to the volume group, move information to the new disk and remove old disk
+Add  /dev/sdb2 to the volume group
+# vgextend vg_centos65 /dev/sdb2
+Move the information in /dev/sda2 to the new partition /dev/sdb2.
+# pvmove /dev/sda2
+Review if the old disk is no longer used
+# pvs -o+pv_used
+Remove /dev/sdb2 from volume group to shrink its size
+# vgreduce vg_centos65 /dev/sda2
+Copy /dev/sda1 to /dev/sdb1
+# dd if=/dev/sda1 of=/dev/sdb1 bs=1M
+Install GRUB in the Master Boot Record of the new disk
+# poweroff
+Remove the old disk from the VM and reboot again from the Live CD
+Make any logical volumes available to the Linux
+# vgchange -a y
+Mount / and /home
+# mkdir /mnt/lv_root 
+# mount /dev/mapper/vg_centos65-lv_root /mnt/lv_root
+# mount /dev/mapper/vg_centos65-lv_home /mnt/lv_root/home
+Mount /boot if it is a different partition
+# mount /dev/sda1 /mnt/lv_root/boot
+Mount needed filesystems
+# mount --bind /dev /mnt/lv_root/dev 
+# mount --bind /proc /mnt/lv_root/proc 
+# mount --bind /sys /mnt/lv_root/sys
+Set this filesystem as the new / directory
+# chroot /mnt/lv_root
+Provide access to the /boot partition to GRUB
+# mkdir /mnt/sda1
+# mount /dev/sda1 /mnt/sda1
+
+Ensure that there's a /boot/grub/grub.cfg (optional)
+# updatgrub-install 
+Install GRUB in the new disk and verify
+# grub-install --root-directory=/mnt/sda1 /dev/sda
+# grub-install --recheck /dev/sda
+If grub-install gives problems, you can install manually from the Grub shell with
+# grub
+root (hd0,0)
+setup (hd0)
+quit
+
+[root@tng3-1 ~]# lvextend -l +100%FREE /dev/myvg/testlv
+
