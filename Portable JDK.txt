@@ -1,9 +1,0 @@
-Download the required JDK/JRE Version
-Unzip the file using 7zip
-Unzip tools.zip to target folder
-Go to target folder and see JDK/JRE unpackage
-From the command line execute with admin priviledges:
-
-for /R %f in (.\*.pack) do @"C:\jdk-1.8u73\bin\unpack200" -r -v -l "" "%f" "%~pf%~nf.jar"﻿
-
-Zip the folder and and take it with you. That's all
