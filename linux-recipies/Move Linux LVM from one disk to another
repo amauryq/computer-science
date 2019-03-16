@@ -14,12 +14,17 @@ pvdisplay
 
 Para /dev/sda2
 
-Si se añade un nuevo disco al grupo de volúmenes, puedes mover los lv a ese nuevo disco; pero para eso primero los lv tienen que caber en el disco nuevo y no lo calcula por espacio usado, sino por tamaño del fs, entonces hay q hacerle resize; pero para hacer resize2fs tienes que tener desmontado el fs, por tanto hay que arrancar desde un CD.
+Si se añade un nuevo disco al grupo de volúmenes, puedes mover los lv a ese nuevo disco; pero para eso primero los lv tienen
+que caber en el disco nuevo y no lo calcula por espacio usado, sino por tamaño del fs, entonces hay q hacerle resize; pero
+para hacer resize2fs tienes que tener desmontado el fs, por tanto hay que arrancar desde un CD.
 
-Despues de hacer el resize2fs, tienes que hacer lvreduce del lv para reducirlo al mismo tamaño si no, te deja el lv del tamaño original y no te lo deja mover al disco nuevo, o eso, o prueba con e2fsadm, que dependiendo de la versión de LVM que tengas hace las dos cosas el solo.
+Despues de hacer el resize2fs, tienes que hacer lvreduce del lv para reducirlo al mismo tamaño si no, te deja el lv del
+tamaño original y no te lo deja mover al disco nuevo, o eso, o prueba con e2fsadm, que dependiendo de la versión de LVM
+que tengas hace las dos cosas el solo.
 
 La cosa esta en que no te vale hacerlo solo con el lv del /home, tienes que hacerlo en todo el vg para poder quitar el disco
-you can execute the pvmove command on the device you want to remove with no other options and the extents will be distributed to the other devices.
+you can execute the pvmove command on the device you want to remove with no other options and the extents will be distributed
+to the other devices.
 
 y luego solo te queda instalar el GRUB en sdb en el master boot record de sdb y
 cuando quites el actual, el nuevo, que ahora se llama sdb, pasará a llamarse sda
