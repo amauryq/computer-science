@@ -1,0 +1,44 @@
+Steps
+1. Go to https://github.com/amauryq and sign in
+2. Click create New repository: todoApp and check "Initialize this repository with a README"
+   and click "Create
+3. Using console go to where the Project folder is located and write the following
+   # git init
+   # git config --global core.autocrlf input
+
+   # git commit --amend --reset-author
+   # git config --global user.name "Amaury Quintero"
+   # git config --global user.email amauryq@gmail.com
+   
+   # git add *
+   # git commit -m "Node.js todoApp"
+   # git remote add origin https://github.com/amauryq/todoApp.git
+   # git pull origin master
+   # git push origin master
+
+or
+
+Steps
+1. Change to folder where the Project root folder you want to upload want to be
+   # git clone https://github.com/amauryq/CompleteWebApp.git
+    
+2.  Put files you want to upload inside Project root folder
+   # git add*
+   # git commit -m "Node.js Complete Web App"
+   # git push origin master
+   
+In case of using proxy to connect to Internet use this:
+export http_proxy=http://USERNAME:PASSWORD@proxy-server.mycorp.com:3128/
+
+# make a branch
+
+(on branch development)$ git merge master
+(resolve any merge conflicts if there are any)
+git checkout master
+git merge development (there won't be any conflicts now)
+git merge --no-ff development
+
+# ssh key generation
+
+ssh-keygen -t rsa -C "amauryq@gmail.com" -b 4096
+ssh-copy-id amauryq@h2227518.stratoserver.net

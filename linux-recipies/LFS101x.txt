@@ -1,0 +1,347 @@
+Chapter 06: Command Line Operations
+
+sudo telinit 3	turns off the graphical desktop on an RPM-based system.
+
+tree
+
+Chapter 08: User Environment
+
+When you first login to Linux, /etc/profile is read and evaluated, after which the following files are searched in the listed order:
+
+~/.bash_profile
+~/.bash_login
+~/.profile 
+
+User must make appropriate changes in the ~/.bash_profile file to include the ~/.bashrc file.
+
+!!	Execute the previous command
+CTRL-R	Search previously used commands
+
+!	Start a history substitution
+!$	Refer to the last argument in a line
+!n	Refer to the nth command line
+!string	Refer to the most recent command starting with string
+
+Key	Task
+CTRL-L	Clears the screen
+CTRL-D	Exits the current shell
+CTRL-Z	Puts the current process into suspended background
+CTRL-C	Kills the current process
+CTRL-H	Works the same as backspace
+CTRL-A	Goes to the beginning of the line
+CTRL-W	Deletes the word before the cursor
+CTRL-U	Deletes from beginning of line to cursor position
+CTRL-E	Goes to the end of the line
+Tab	Auto-completes files, directories, and binaries
+
+define alias in .bashrc
+
+rsync	very useful way to back up a project directory might be to use the following command:
+$ rsync -r project-X archive-machine:archives/project-X
+
+gzip	The most frequently used Linux compression utility
+bzip2	Produces files significantly smaller than those produced by gzip
+xz	The most space efficient compression utility used in Linux
+zip	Is often required to examine and decompress archives from other operating systems
+
+$ tar zcvf mydir.tar.gz mydir	Create the archive and compress with gzip
+$ tar jcvf mydir.tar.bz2 mydir	Create the archive and compress with bz2
+$ tar Jcvf mydir.tar.xz mydir	Create the archive and compress with xz
+
+dd	For making copies of raw disk space.
+dd if=/dev/sda of=/dev/sdb
+
+Chapter 10: Text Editors
+
+vi Commands
+
+:r file2	Read in file2 and insert at current position
+
+0	To move to beginning of line
+$	To move to end of line
+w	To move to beginning of next word
+:0 , 1G	To move to beginning of file
+:n , nG	To move to line n
+:$ , G	To move to last line in file
+^l	To refresh and center screen
+
+/pattern	Search forward for pattern
+?pattern	Search backward for pattern
+
+:! wc % Count lines of the current file, ! for execute shell commands
+
+Chapter 12: Network Operations
+
+Debian, The basic network configuration file is /etc/network/interfaces. You can type /etc/init.d/networking start to start the networking configuration.
+
+Fedora, The routing and host information is contained in /etc/sysconfig/network. The network interface configuration script is located at /etc/sysconfig/network-scripts/ifcfg-eth0.
+
+You can type /etc/init.d/network start to start the networking configuration for Fedora and SUSE families.
+
+To view the IP address:
+$ /sbin/ip addr show
+
+To view the routing information:
+$ /sbin/ip route show
+
+Task	Command
+Show current routing table	$ route –n
+Add static route		$ route add -net address
+Delete static route		$ route del -net address
+
+To print the route taken by the packet to reach the network host, at the command prompt, type traceroute <domain>
+
+Networking Tools	Description
+ethtool			Queries network interfaces and can also set various parameters such as the speed.
+netstat			Displays all active connections and routing tables. Useful for monitoring performance and troubleshooting.
+nmap			Scans open ports on a network. Important for security analysis
+tcpdump			Dumps network traffic for analysis.
+iptraf			Monitors network traffic in text mode.
+
+Chapter 13: Manipulating Text
+
+sed s/pattern/replace_string/ file	Substitute first string occurrence in a line
+sed s/pattern/replace_string/g file	Substitute all string occurrences in a line
+sed 1,3s/pattern/replace_string/g file	Substitute all string occurrences in a range of lines
+sed -i s/pattern/replace_string/g file	Save changes for string substitution in the same file
+
+awk '{ print $0 }' /etc/passwd	Print entire file
+awk -F: '{ print $1 }' /etc/passwd	Print first field (column) of every line, separated by a space
+awk -F: '{ print $1 $6 }' /etc/passwd	Print first and sixth field of every line
+
+sort	Rearrange the lines of a text file, according to a sort key. You can also sort by particular fields of a
+ 	file. The default sort key is the order of the ASCII characters
+uniq	Remove duplicate lines in a text file
+paste	Create a single file containing all three columns
+join	Checks whether the files share common fields and then joins the lines in two files based on a common field.
+split	Break up (or split) a file into equal-sized segments
+
+Regular Expressions
+
+.(dot)	Match any single character
+a|z	Match a or z
+$	Match end of string
+*	Match preceding item 0 or more times
+a..	matches azy
+b.|j.	matches both br and ju
+..$	matches og
+l.*	matches lazy dog
+l.*y	matches lazy
+the.*	matches the whole sentence
+
+grep [pattern] <filename>	Search for a pattern in a file and print all matching lines
+grep -v [pattern] <filename>	Print all lines that do not match the pattern
+
+tr	Translate specified characters into other characters or to delete them
+
+$ tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ	Convert lower case to upper case
+$ tr '{}' '()' < inputfile > outputfile				Translate braces into parenthesis
+$ echo "This is for testing" | tr [:space:] '\t'		Translate white-space to tabs
+$ echo "This   is   for    testing" | tr -s [:space:]		Squeeze repetition of characters using -s
+$ echo "the geek stuff" | tr -d 't'				Delete specified characters using -d option
+$ echo "my username is 432234" | tr -cd [:digit:]		Complement the sets using -c option
+$ tr -cd [:print:] < file.txt					Remove all non-printable character from a file
+$ tr -s '\n' ' ' < file.txt					Join all the lines in a file into a single line
+
+tee 	Takes the output from any command, and while sending it to standard output, it also saves it to a file
+
+wc 	Counts the number of lines, words, and characters in a file or list of files
+
+cut 			Manipulate column-based files to extract specific columns.
+			Default column separator is the tab
+ls -l | cut -d" " -f3	To display the third column delimited by a blank space
+
+head		reads the first few lines of each named file
+tail		reads the last few lines of each named file
+strings 	Extract all printable character strings found in the file or files given as arguments.
+		Useful in locating human readable content embedded in binary files
+The z Command Family
+
+For compressed files the associated utilities have the letter z prefixed to their name.
+zcat, zless, zdiff, and zgrep.
+
+Chapter 14: Printing
+
+CUPS	Software that is used behind the scenes to print from applications
+
+configuration files	/etc/cups/ directory.
+			cupsd.conf and printers.conf
+jobs			/var/spool/cups 
+logs 			/var/log/cups
+
+lp <filename>			To print the file to default printer
+lp -d printer <filename>	To print to a specific printer (useful if multiple printers are available)
+program | lp
+echo string | lp		To print the output of a program
+lp -n number <filename>		To print multiple copies
+lpoptions -d printer		To set the default printer
+lpq -a				To show the queue status
+lpadmin				To configure printer queues
+
+lpstat -p -d			To get a list of available printers, along with their status
+lpstat -a			To check the status of all connected printers, including job numbers
+cancel job-id
+OR
+lprm job-id			To cancel a print job
+lpmove job-id newprinter	To move a print job to new printer
+
+enscript -p psfile.ps textfile.txt	Convert a text file to PostScript (saved to psfile.ps)
+enscript -n -p psfile.ps textfile.txt	Convert a text file to n columns where n=1-9 (saved in psfile.ps)
+enscript textfile.txt			Print a text file directly to the default printer
+
+The most common Linux PDF readers are:
+
+Evince 		Available on virtually all distributions and the most widely used program.
+Okular		Based on the older kpdf and available on any distribution that provides the KDE environment.
+GhostView	One of the first open source PDF readers and is universally available.
+Xpdf		One of the oldest open source PDF readers and still has a good user base. 
+
+pdftk		Perform a very large variety of sophisticated tasks. Some of these operations include:
+		Merging/Splitting/Rotating PDF documents
+		Repairing corrupted PDF pages
+		Pulling single pages from a file
+		Encrypting and decrypting PDF files
+		Adding, updating, and exporting a PDF’s metadata
+		Exporting bookmarks to a text file
+		Filling out PDF forms
+
+Merge the two documents 1.pdf and 2.pdf. The output will be saved to 12.pdf.
+$ pdftk 1.pdf 2.pdf cat output 12.pdf	
+
+Write only pages 1 and 2 of 1.pdf. The output will be saved to new.pdf.
+$ pdftk A=1.pdf cat A1-2 output new.pdf
+
+Rotate all pages of 1.pdf 90 degrees clockwise and save result in new.pdf.
+$ pdftk A=1.pdf cat A1-endright output new.pdf
+
+Encrypting PDF Files
+$ pdftk public.pdf output private.pdf user_pw PROMPT
+
+pdfinfo		Extract information about PDF files, 
+flpsed 		Add data to a PostScript document. 
+pdfmod		Provides a graphical interface for modifying PDF documents. 
+		You can reorder, rotate, and remove pages; export images from a document;
+		edit the title, subject, and author; add keywords; and combine documents
+
+$ pdf2ps file.pdf			Converts file.pdf to file.ps
+$ ps2pdf file.ps			Convertsfile.ps to file.pdf
+$ pstopdf input.ps output.pdf		Converts input.ps to output.pdf
+$ pdftops input.pdf output.pdf		Converts input.pdf to output.ps
+
+Chapter 15: Bash Shell Scripting
+
+The #!/bin/bash in the first line of the script, that starts with #!, contains the full path of the command interpreter that is to be used on the file.
+
+Commonly used interpreters include: /usr/bin/perl, /bin/bash, /bin/csh, /usr/bin/python, /bin/sh, /bin/tcsh and /bin/ksh
+
+Linux provides a wide choice of shells; exactly what is available on the system is listed in /etc/shells. 
+
+As a script executes, one can check for a specific value or condition and return success or failure as the result.
+
+$ ls /etc/passwd
+/etc/ passwd
+
+$ echo $?
+0
+
+Char	Description
+#	Used to add a comment, except when used as \#, or as #! when starting a script
+\	Used at the end of a line to indicate continuation on to the next line
+;	Used to interpret what follows as a new command
+$	Indicates what follows is a variable
+
+The three commands in the following example will all execute even if the ones preceding them fail:
+$ make ; make install ; make clean
+
+However, you may want to abort subsequent commands if one fails. You can do this using the && (and) operator as in:
+
+$ make && make install && make clean
+
+If the first command fails the second one will never be executed. A final refinement is to use the || (or) operator as in:
+
+$ cat file1 || cat file2 || cat file3
+
+In this case, you proceed until something succeeds and then you stop executing any further steps.
+
+The function declaration requires a name which is used to invoke it. The proper syntax is:
+
+    function_name () {
+       command...
+    }
+
+how to pass an argument to the function.  The first argument can be referred to as $1, the second as $2, etc.
+
+Command Substitution by enclosing the inner command in $( )
+
+$ cd /lib/modules/$(uname -r)/
+
+By default, the variables created within a script are available only to the subsequent steps of that script. To make them available to child processes:
+
+export VAR=value
+
+Parameter	Meaning
+$0		Script name
+$1		First parameter
+$2, $3, etc.	Second, third parameter, etc.
+$*		All parameters
+$#		Number of arguments
+
+if [ -f /etc/passwd ]
+then
+    echo "/etc/passwd exists."
+fi
+
+In modern scripts you may see doubled brackets as in[[ -f /etc/passwd ]]. This is not an error. It is never wrong to do so and it avoids some subtle problems such as referring to an empty environment variable without surrounding it in double quotes
+
+You can view the full list of file conditions using the command man 1 test.
+
+String Manipulation
+
+Operator		Meaning
+[ string1 > string2 ]	Compares the sorting order of string1 and string2.
+[ string1 == string2 ]	Compares the characters in string1 with the characters in string2.
+myLen1=${#mystring1}	Saves the length of string1 in the variable myLen1.
+
+To extract the first character of a string we can specify:
+
+${string:0:1} Here 0 is the offset in the string where the extraction needs to start and 1 is the number of characters to be extracted.
+
+To extract all characters in a string after a dot (.), use the following expression:
+${string#*.}
+${string##*\.}
+
+Run a script in debug mode by doing bash –x script_file.
+
+Debug only selected parts of a script with:
+set -x    # turns on debugging
+...
+set +x    # turns off debugging
+
+Creating Temporary Files and Directories
+
+TEMP=$(mktemp /tmp/tempfile.XXXXXXXX)	To create a temporary file
+TEMPDIR=$(mktemp -d /tmp/tempdir.XXXXXXXX) To create a temporary directory
+
+Random Numbers and Data can be generated by using the $RANDOM environment variable
+
+Chapter 17: Processes
+
+top command
+
+First line
+
+The load average determines how busy the system is. A load average of 1.00 per CPU indicates a fully subscribed, but not overloaded, system.
+If the load average goes above this value, it indicates that processes are competing for CPU time.
+If the load average is very high, it might indicate that the system is having a problem, such as a runaway process (a process in a non-responding state).
+
+
+Chapter 18: Common Applications
+
+Movie Editors
+
+Kino		Acquire and edit camera streams. Kino can merge and separate video clips.
+Cinepaint	Frame-by-frame retouching. Cinepaint is used for editing images in a video.
+Blender		Create 3D animation and design. Blender is a professional tool that uses modeling as a starting point. There are complex and powerful tools for 		camera capture, recording, editing, enhancing and creating video, each having its own focus.
+Cinelerra	Capture, compose, and edit audio/video.
+FFmpeg		Record, convert, and stream audio/video. FFmpeg is a format converter, among other things, and has other tools such as ffplay and ffserver.
+

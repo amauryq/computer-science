@@ -1,0 +1,15 @@
+
+route add -net 180.197.0.0 netmask 255.255.0.0 gateway 180.106.7.1 metric 50
+route add -net 172.31.0.0 netmask 255.255.0.0 gateway 180.106.7.1 metric 50
+
+
+route add -net 180.197.77.0 netmask 255.255.255.0 gateway 180.106.7.1 metric 50
+
+route add -net 180.0.0.0 netmask 255.0.0.0 gateway 180.106.7.1 metric 50
+route add -net 172.0.0.0 netmask 255.0.0.0 gateway 180.106.7.1 metric 50
+
+route add default gw 180.106.7.250 metric 100
+
+
+route del -host 10.10.10.45 gw 192.168.0.1
+route del -net 

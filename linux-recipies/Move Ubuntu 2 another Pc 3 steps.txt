@@ -1,0 +1,26 @@
+﻿Move your Ubuntu system to another computer in 3 simple steps
+JANUARY 28, 2010
+You just got a brand new machine but you won’t like to spend hours tuning it to get the same configuration as the one you have used for years?
+
+Let’s transfer your Ubuntu configuration and applications to your new computer in three simple steps.
+
+This method is cross-architecture. I moved successfully my configuration and applications from an Ubuntu 9.04 32bit to a 64bit one.
+
+Prerequisites:
+The same version of Ubuntu is installed on both machines. The architecture (32/64 bit) can be different.
+
+Step 1: Store the list of installed packages
+Run the following command on the source machine to store the installed packages names in ~/pkglist:
+sudo dpkg --get-selections | sed "s/.*deinstall//" | sed "s/install$//g" > ~/pkglist
+
+Step 2: Transfer your config
+Use scp or rsync or even a flash drive to transfer your home directory (~/*, ~/.*), the source list (/etc/apt/sources.list) and any other files you customized or installed (like apache config under /etc or softwares on /opt) from the source machine to the target one.
+
+rsync -avrzl --delete /home/ 192.168.0.18:/mnt/lv-home/
+
+Step 3: Install packages
+On the target machine run the following command in a failsafe terminal session to install your packages:
+
+sudo aptitude update && cat pkglist | xargs sudo aptitude install -y
+
+That’s all folks!

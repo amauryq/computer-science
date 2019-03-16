@@ -1,0 +1,15 @@
+Shrink VMWare Virtual Disks formatted with ext4
+
+# sudo apt-get clean
+# sudo dd if=/dev/zero of=/0bits bs=20971520 # bs=20m
+# sudo rm /0bits
+
+This will manually clear unused space. Note that the first call to apt-get is not required, and only applicable if you’re running
+a distribution that uses Debian’s advanced packaging tool for package management.
+
+After you’ve executed these commands, shutdown your VM and use vmware-vdiskmanager to shrink the virtual drive file.
+
+# cd "C:\Program Files\VMware\VMware Workstation"
+# vmware-vdiskmanager -k path\to\your\VirtualDisk.vmdk
+
+You should see a noticeable reduction in file size after this.

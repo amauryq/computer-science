@@ -1,0 +1,4 @@
+# Register workstation in IBM RHN
+wget -qO- --no-check-certificate https://rhn.linux.ibm.com/pub/bootstrap/bootstrap.sh | /bin/bash
+rhnreg_ks --force --username=gines_carrascal@es.ibm.com --password=xsw21qaz
+yum upgrade

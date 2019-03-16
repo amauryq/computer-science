@@ -1,0 +1,31 @@
+Simulacion de una VPN a traves de un tunel ssh inverso usando como proxy una instancia EC2 de Amazon
+
+Levantar una maquina de Amazon con el vpn security group default o asegurarse de abrir los puertos que se necesiten en el security groupy
+Generar un certificado (PEM) y descargarlo
+Conectarse al servidor (ej: pry-trans-csa) y desde este crear el tunel ssh inverso a la instancia de Amazon
+
+ssh -R 8080:localhost:8080 -i "ferrovial.pem" ec2-user@ec2-52-57-113-83.eu-central-1.compute.amazonaws.com
+
+Este comando usa el puerto remoto 8080 de la instancia de Amazon y lo redirige al puerto local 8080 del servidor donde se ejecuta
+
+Desde donde nos necesitemos conectar (MAC de Gines) creamos el tunel ssh directo a la misma instancia de Amazon
+
+ssh -L 8080:localhost:8080 -i "ferrovial.pem" ec2-user@ec2-52-57-113-83.eu-central-1.compute.amazonaws.com
+
+Este comando redirecciona el puerto 8080 local al puerto 8080 de la instancia de Amazon
+
+Ya con esto tenemos establecida la comunicacion
+
+Para probar:
+Desde el navegador conectarse a:
+
+http://localhost:8080/AppBuilder
+
+usuario: ID000045
+pass: sergioga
+
+Para evitar que se cierre el tunel por timeout podemos usar autossh
+
+autossh -M 0 -q -f -N -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -i "ferrovial.pem" -R 8080:localhost:8080 ec2-user@ec2-52-57-113-83.eu-central-1.compute.amazonaws.com
+
+autossh -M 10984 -o "PubkeyAuthentication=yes" -o "PasswordAuthentication=no" -i "ferrovial.pem" -R 8080:localhost:8080 ec2-user@ec2-52-57-113-83.eu-central-1.compute.amazonaws.com
