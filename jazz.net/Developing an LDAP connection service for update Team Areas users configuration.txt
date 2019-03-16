@@ -1,0 +1,10 @@
+# Developing an LDAP connection service for update Team Areas users configuration
+
+Suppose you have a very large  group of developers, project managers, testers, etc. team members in general, and all of them
+belongs to different departments and have different roles in a project where your company is working on. All of this
+configuration about permissions, departments, etc is set in your company directory, then you realized all the information
+I have to set manually in RTC, users, permissions, roles, team areas is already set in that directory.
+
+The following code help us to configure all that data in RTC, having as input, the company LDAP.
+
+For doing that task, first we need to define an 
