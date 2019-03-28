@@ -105,11 +105,11 @@ docker inspect <id|name>
 
 # This works
 
-elinks http://172.17.0.2
+```elinks http://172.17.0.2
 
 This doesn't work because ports are note exposed
 
-elinks http://localhost # does not work
+elinks http://localhost
 
 # Expose ports
 
