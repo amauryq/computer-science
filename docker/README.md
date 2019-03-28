@@ -75,15 +75,21 @@ python --version
 
 #### Using a Dockerfile
 
+Create a Dockerfile
 ```bash
-Dockerfile
-# This is a custom docker images
-FROM ubuntu:xenail
+# This is a custom docker image with telnet and openssh server installed
+FROM ubuntu:xenial
 MAINTAINER Amaury Quintero <amauryq@gmail.com>
-RUN apt-get update
-RUN apt-get install -y telnet openssh-server
+RUN apt update
+RUN apt install -y telnet openssh-server
 ```
 
+```bash
+docker build -t "amauryq/ubuntu_telnet_ssh:v2" .
 
+# The new docker images must be available and you can run it
+
+docker run -it amauryq/ubuntu_telnet_ssh:v2 /bin/bash
+```
 
 
