@@ -96,7 +96,7 @@ docker run -it amauryq/ubuntu_telnet_ssh:v2 /bin/bash
 
 ## Exposing our Container with Port Redirects
 
-__Pull the image and run it__
+**Pull the image and run it**
 ```bash
 docker pull nginx:latest
 docker run -d nginx:latest
