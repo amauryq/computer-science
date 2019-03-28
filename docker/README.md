@@ -1,4 +1,6 @@
-# Installation and Image Setup
+# Docker
+
+## Installation
 
 ```bash
 sudo yum install -y yum-utils lvm2 device-mapper-persistent-data
@@ -16,10 +18,28 @@ sudo systemctl enable docker
 sudo systemctl start docker
 
 sudo usermod -a -G docker user
+
+grep docker /etc/group
 ```
-Logout and login
+
+## Verification
+
+Logout and login again
 
 ```bash
-grep docker /etc/group
 docker run hello-world
+
+docker pull alpine:latest
+
+docker images | grep alpine
+
+docker pull nginx:1.15
+
+docker images | nginx
+
+docker history nginx:1.15
+
+
+docker run -it --name="test_ssh" -p 8022:22 docker.io/centos:6 /bin/bash
+
 ```
