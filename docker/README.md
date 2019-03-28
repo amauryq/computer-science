@@ -96,26 +96,30 @@ docker run -it amauryq/ubuntu_telnet_ssh:v2 /bin/bash
 
 ## Exposing our Container with Port Redirects
 
+** Pull the image and run it **
 ```bash
 docker pull nginx:latest
 docker run -d nginx:latest
 ```
 
-Look for the container IP address
-
-`docker inspect <id|name>
-
-# This works
-
-`elinks http://172.17.0.2`
-
-This doesn't work because ports are note exposed
-
-`elinks http://localhost`
-
-# Expose ports
-
-`docker run -d -p 80:80 nginx:latest
-
-# Now using localhost works
+** Look for the container IP address **
+```bash
+docker inspect <id|name> | grep IP
 ```
+
+** This works **
+```bash
+elinks http://172.17.0.2
+```
+
+** This doesn't work because ports are note exposed **
+```bash
+elinks http://localhost
+```
+
+** Expose ports **
+```bash
+docker run -d -p 80:80 nginx:latest
+```
+
+** Now using localhost works **
