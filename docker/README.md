@@ -72,3 +72,18 @@ docker run -it amauryq/ubuntu_python:v1 /bin/bash
 
 python --version
 ```
+
+#### Using a Dockerfile
+
+```bash
+Dockerfile
+# This is a custom docker images
+FROM ubuntu:xenail
+MAINTAINER Amaury Quintero <amauryq@gmail.com>
+RUN apt-get update
+RUN apt-get install -y telnet openssh-server
+```
+
+
+
+
