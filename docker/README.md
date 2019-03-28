@@ -17,6 +17,8 @@ sudo systemctl enable docker
 
 sudo systemctl start docker
 
+sudo groupadd docker
+
 sudo usermod -a -G docker user
 
 grep docker /etc/group
