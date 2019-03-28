@@ -123,3 +123,42 @@ docker run -d -p 80:80 nginx:latest
 ```
 
 **Now using localhost works**
+
+## Docker Useful Commands
+
+```bash
+docker version
+docker info
+docker ps -a
+docker pull
+docker images
+docker inspect
+docker run 
+docker restart
+docker rm
+docker rmi
+```
+
+## TODO
+
+```bash
+docker run -i -t -d ubuntu:xenial /bin/bash
+docker attach <id|name>
+
+exit inside the container stop the container use
+docker restart 
+
+docker ps -a
+docker logs <id|name>
+
+# execute a command in a running docker
+docker exec <id|name> /bin/cat /etc/profile
+docker stop <id|name>
+
+docker run <id|name> echo "Hello from a container"
+docker restart <id|name>
+docker log <id|name>
+
+docker run -d ubuntu:xenial /bin/bash -c "while true;do echo Hello;sleep 1;done"
+docker logs <id|name> | wc -l # check if lines count are increasing
+```
