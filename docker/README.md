@@ -45,6 +45,8 @@ docker run -it --name="test_ssh" -p 8022:22 docker.io/centos:6 /bin/bash
 
 ### Make changes to a docker images
 
+#### Directly creating or modifying an image
+
 ```bash
 docker pull ubuntu
 
