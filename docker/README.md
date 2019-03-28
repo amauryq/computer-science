@@ -102,24 +102,24 @@ docker pull nginx:latest
 docker run -d nginx:latest
 ```
 
-** Look for the container IP address **
+**Look for the container IP address**
 ```bash
 docker inspect <id|name> | grep IP
 ```
 
-** This works **
+**This works**
 ```bash
 elinks http://172.17.0.2
 ```
 
-** This doesn't work because ports are note exposed **
+**This doesn't work because ports are note exposed**
 ```bash
 elinks http://localhost
 ```
 
-** Expose ports **
+**Expose ports**
 ```bash
 docker run -d -p 80:80 nginx:latest
 ```
 
-** Now using localhost works **
+**Now using localhost works**
