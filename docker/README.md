@@ -149,6 +149,9 @@ docker stop <id|name>
 docker restart <id|name>
 docker rm <id|name>
 docker rmi <id|name>
+# attach a volume to the container
+docker run -it --name <name> -v <local_folder>:<container_folder> centos7/echo:v1 /bin/bash
+
 ```
 
 Run demonized and then attach to it
