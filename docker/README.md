@@ -134,6 +134,13 @@ docker run -d -p 80:80 nginx:latest
 
 Now using localhost works
 
+Exposing port toonly one interfact 
+```bash
+docker run -d -p 127.0.0.1:80:80 nginx:latest
+#Just bind udp protocol
+docker run -d -p 127.0.0.1:80:80/udp nginx:latest
+```
+
 ## Docker Useful Commands
 
 ```bash
@@ -143,15 +150,32 @@ docker ps -a
 docker pull <image_name>
 docker images
 docker inspect <id|name>
+docker create -it --name="<name>" ubuntu:latest /bin/bash
 docker run <id|name>
 docker start <id|name>
 docker stop <id|name>
 docker restart <id|name>
-docker rm <id|name>
+docker rm <id|name> [-q | wc -l][-f]
+docker rm `docker ps -a -q`
 docker rmi <id|name>
-# attach a volume to the container
-docker run -it --name <name> -v <local_folder>:<container_folder> centos7/echo:v1 /bin/bash
 
+docker network ls --no-trunc
+docker network inspect <id|name>
+docker network create --subnet 10.1.0.0/24 --gateway 10.1.0.1 <name>
+docker network create --subnet 10.1.0.0/16 --gateway 10.1.0.1 --ip-range=10.1.4.0/24 --driver=bridge --label=<network_label> <name>
+docker network create --subnet 10.1.0.0/16 --gateway 10.1.0.1 --ip-range=10.1.4.0/24 --ip 10.1.4.100 --driver=bridge --label=<network_label> <name>
+docker network inspect <id|name>
+# review with ifconfig
+docker run -it --name <name> --net <network_name> centos /bin/bash
+
+docker network rm <id|name>
+
+# snapshot performance
+docker top <id|name>
+# interactive performance
+docker stats <id|name>
+# Run another bash in order the current container does not stop when exited
+docker exec -i -t <id|name> /bin/bash
 ```
 
 Run demonized and then attach to it
@@ -172,6 +196,11 @@ docker run -d ubuntu:xenial /bin/bash -c "while true;do echo Hello;sleep 1;done"
 
 # check if lines count are increasing
 docker logs <id|name> | wc -l
+```
+
+Attach a volume to the container
+```bash
+docker run -it --name <name> -v <local_folder>:<container_folder> centos7/echo:v1 /bin/bash
 ```
 
 ## Connecting with a non priviledge user
