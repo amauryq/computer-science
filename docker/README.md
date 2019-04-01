@@ -151,6 +151,7 @@ docker pull <image_name>
 docker images
 docker inspect <id|name>
 docker create -it --name="<name>" ubuntu:latest /bin/bash
+docker rename <name1> <name2>
 docker run <id|name>
 docker start <id|name>
 docker stop <id|name>
