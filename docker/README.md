@@ -92,6 +92,12 @@ Load container from a file
 docker load --input centos.latest.tar.gz
 ```
 
+Tag a container, creates a new reference to the same image
+```bash
+docker tag <id> <new-name-with-tag>
+docker tag <name_with_tag> <new_name_with_tag>
+```
+
 ### 2. Using a Dockerfile
 
 Create a Dockerfile
