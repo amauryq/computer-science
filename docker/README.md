@@ -206,6 +206,13 @@ docker top <id|name>
 docker stats <id|name>
 # Run another bash in order the current container does not stop when exited
 docker exec -i -t <id|name> /bin/bash
+
+# Using Google Public DNS and Domain Search "mydomain.local and mount local and remote volumes"
+docker run -it --dns=8.8.8.8 --dns-search="mydomain.local" --name="mycontainer1" -v /local_vol -v /home/amauryq:/remote_vol docker.io/ubuntu:latest /bin/bash
+# Inside the container
+cat /etc/resolv.conf 
+search mydomain.local
+df -h
 ```
 
 Run demonized and then attach to it
