@@ -155,6 +155,7 @@ docker rename <id|name> <new_name>
 docker run <id|name>
 docker start <id|name>
 docker stop <id|name>
+docker kill <id|name>
 docker restart <id|name>
 docker rm <id|name> [-q | wc -l][-f]
 docker rm `docker ps -a -q`
