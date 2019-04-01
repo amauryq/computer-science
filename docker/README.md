@@ -203,6 +203,7 @@ docker logs <id|name> | wc -l
 View events on containers
 ```bash
 docker events [--since '1h']
+docker events --filter event=attach --filter event=die --filter event=stop
 ```
 
 Attach a volume to the container
