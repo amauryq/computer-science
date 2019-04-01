@@ -81,6 +81,17 @@ Verify python is already installed
 python --version
 ```
 
+Save container to a file
+```bash
+docker save --output centos.latest.tar centos:latest
+gzip centos.latest.tar
+```
+
+Load container from a file
+```bash
+docker load --input centos.latest.tar.gz
+```
+
 ### 2. Using a Dockerfile
 
 Create a Dockerfile
