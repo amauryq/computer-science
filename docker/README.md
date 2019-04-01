@@ -199,6 +199,11 @@ docker run -d ubuntu:xenial /bin/bash -c "while true;do echo Hello;sleep 1;done"
 docker logs <id|name> | wc -l
 ```
 
+View events on containers
+```bash
+docker events [--since '1h']
+```
+
 Attach a volume to the container
 ```bash
 docker run -it --name <name> -v <local_folder>:<container_folder> centos7/echo:v1 /bin/bash
