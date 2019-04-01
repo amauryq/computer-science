@@ -39,7 +39,7 @@ docker pull nginx:1.15
 
 docker images | grep nginx
 
-docker history nginx:1.15 [--no-trunc]
+docker history nginx:1.15 [--quiet][--no-trunc]
 
 docker run -it --name="test_ssh" -p 8022:22 docker.io/centos:6 /bin/bash
 
