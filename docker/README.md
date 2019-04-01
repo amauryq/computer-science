@@ -159,7 +159,7 @@ docker kill <id|name>
 docker restart <id|name>
 docker rm <id|name> [-q | wc -l][-f]
 docker rm `docker ps -a -q`
-docker rmi <id|name>
+docker rmi <id|name> [-f]
 
 docker network ls --no-trunc
 docker network inspect <id|name>
