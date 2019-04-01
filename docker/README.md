@@ -98,6 +98,17 @@ docker tag <id> <new-name-with-tag>
 docker tag <name_with_tag> <new_name_with_tag>
 ```
 
+Push a container image to Docker Hub
+```bash
+docker pull centos:latest
+docker tag centos:latest amauryq/my-centos7:latest
+docker login --username amauryq
+docker push amauryq/my-centos7:latest
+# login information is at ~/.docker/config.json
+docker logout
+```
+
+
 ### 2. Using a Dockerfile
 
 Create a Dockerfile
