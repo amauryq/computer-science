@@ -217,7 +217,7 @@ df -h
 
 Run demonized and then attach to it
 ```bash
-docker run -i -t -d ubuntu:xenial /bin/bash
+docker run -i -t -d ubuntu:xenial /bin/bash -e JAVA_HOME /opt/java -e JRE_HOME /opt/java
 docker attach <id|name>
 ```
 
