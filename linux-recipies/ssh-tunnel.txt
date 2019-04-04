@@ -1,0 +1,10 @@
+Local Port
+
+ssh -f -N -L 8000:yahoo.com:80 amauryq@centos1.server.dev
+
+Remote Port
+
+sudo vi /etc/ssh/sshd_config
+3 change GatewayPorts yes
+service sshd restart
+ssh -R 8000:localhost:3000 amauryq@centos1.server.dev
