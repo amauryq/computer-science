@@ -1,1 +1,1 @@
-jenkin
+jenkins
