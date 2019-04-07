@@ -1,5 +1,16 @@
 <img src="https://jenkins.io/sites/default/files/jenkins_logo.png"/>
 
+# Jenkins in Centos
+
+```bash
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+sudo yum update
+sudo yum install java
+sudo yum install jenkins
+sudo systemctl start jenkins
+```
+
 # Jenkins in Docker
 
 Install Master
@@ -21,7 +32,7 @@ docker logs CONTAINER_ID
 Run Slave
 
 ```bash
-
+docker run -i -t jenkins/ssh-slave "<pub-key>"
 ```
 
 [Read the Documentation](https://github.com/jenkinsci/docker/blob/master/README.md)
