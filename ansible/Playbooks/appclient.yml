@@ -1,4 +1,6 @@
 - hosts: appclient
+  vars:
+    author_name: Amaury Quintero
   vars_files:
   - vars.yml
   tasks:
