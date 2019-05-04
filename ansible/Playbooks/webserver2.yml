@@ -1,0 +1,34 @@
+--- # Outline to Playbook Translation
+
+- hosts: webclient
+  user: ansible
+  become: yes
+  gather_facts: no
+  
+  tasks:
+  - name: Playbook Start Timestamp
+    command: /usr/bin/date
+    register: playbook_start
+  - debug: var=playbook_start
+  - name: Install Apache Web Server
+    yum: pkg=httpd state=latest
+    notify: Start httpd
+  - name: Check Web Server is Running
+    command: systemctl status httpd
+    register: check_httpd
+  - debug: var=check_httpd
+  - name: Install Telnet
+    yum: pkg=telnet state=latest
+  - name: Install Lynx
+    yum: pkg=lynx state=latest
+  - name: Log Packages Installed
+    command: yum list installed
+    register: packages_installed
+  - debug: var=packages_installed
+  - name: Playbook End Timestamp
+    command: /usr/bin/date
+    register: playbook_end
+  - debug: var=playbook_end
+  handlers:
+  - name: Start httpd
+    service: name=httpd state=restarted
