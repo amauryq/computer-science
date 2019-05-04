@@ -1,5 +1,5 @@
 --- # My First Playbook for Ansible
-- hosts: webclient
+- hosts: all
   user: ansible
   become: yes
   connection: ssh
@@ -10,13 +10,16 @@
     - conf/copyright.yml
     - conf/webdefaults.yml
   vars_prompt:
-    - name: web_domain
-      prompt: Web Domain
+    - name: pkg_name
+      prompt: Package to Install?
   tasks:
     - name: Install Apache Web Server
       action: yum name=httpd state=installed
+      async: 30
+      poll: 3
       notify: Restart httpd
+    - name: Install {{pkg_name}}
+      action: yum name={{pkg_name}} state=installed
   handlers:
     - name: Restart httpd
       action: service name=httpd state=restarted
-      

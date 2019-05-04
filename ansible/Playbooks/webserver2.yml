@@ -12,7 +12,7 @@
   - debug: var=playbook_start
   - name: Install Apache Web Server
     yum: pkg=httpd state=latest
-    notify: Start httpd
+    notify: Restart httpd
   - name: Check Web Server is Running
     command: systemctl status httpd
     register: check_httpd
@@ -30,5 +30,5 @@
     register: playbook_end
   - debug: var=playbook_end
   handlers:
-  - name: Start httpd
+  - name: Restart httpd
     service: name=httpd state=restarted
