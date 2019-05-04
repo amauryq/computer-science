@@ -14,4 +14,5 @@ ansible webclient -m setup -a 'filter=ansible_*'
 
 ```bash
 ansible appclient -s -m yum -a 'pkg=telnet state=installed update_cache=true'
+ansible-playbook -s Playbooks/appclient.yml
 ```
