@@ -1,0 +1,14 @@
+--- # RunOnce Playbook for Ansible
+- hosts: all
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+  vars:
+    lookup_value: Bruce  
+  tasks:
+    - name: Run uptime
+      raw: /usr/bin/uptime > /home/ansible/uptime.log
+    - name: List /var directory
+      raw: ls -la /var >> /home/ansible/var_list.txt
+      run_once: true

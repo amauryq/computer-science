@@ -1,0 +1,11 @@
+--- # My First Playbook for Ansible
+- hosts: webclient
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+  vars:
+    lookup_value: Bruce  
+  tasks:
+    - debug: msg="Lookup for {{lookup_value}} -> {{ lookup('csvfile', 'Bruce file=lookup.csv delimiter=, default=NOMATCH') }}"
+    - debug: msg="{{ lookup('env', 'HOME') }} is the value"
