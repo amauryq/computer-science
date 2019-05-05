@@ -1,0 +1,23 @@
+--- # Tag Playbook for Ansible
+
+# Run ansible-playbook tags.yml --tags check to jump directly to the task with the tag check, same with install
+# Run ansible-playbook tags.yml --skip-tags install to skip the tag
+# If use always as tag the it will run unless --skip-tags always is set when called
+
+- hosts: all
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Install Telnet and Lynx Client
+      yum: name={{ item }} state=latest
+      with_items:
+        - telnet
+        - lynx
+      tags:
+        - install
+    - name: Check Telnet Installed
+      raw: yum list installed | grep telnet > /home/ansible/is_telnet.log
+      tags:
+        - check
