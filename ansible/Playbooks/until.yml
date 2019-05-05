@@ -1,0 +1,21 @@
+--- # Until Ansible Palybook
+
+- hosts: webclient
+  user: ansible
+  become: yes
+  gather_facts: yes
+  
+  tasks:
+  - name: Install Apache Web Server
+    yum: pkg=httpd state=latest
+    notify: Restart httpd
+  - name: Check Web Server is Running
+    command: systemctl status httpd
+    register: check_httpd
+    until: check_httpd.stdout.find("active (running)") != -1
+    retries: 5
+    delay: 5
+  - debug: var=check_httpd
+  handlers:
+  - name: Restart httpd
+    service: name=httpd state=restarted

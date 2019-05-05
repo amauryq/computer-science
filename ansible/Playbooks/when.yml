@@ -1,0 +1,18 @@
+--- # When Playbook for Ansible
+- hosts: all
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes
+  vars:
+    playbook_type: conditional
+  vars_files:
+    - conf/copyright.yml
+    - conf/webdefaults.yml
+  tasks:
+    - name: Install Apache Web Server Debian
+      command: apt-get -y intall apache2
+      when: ansible_os_family == 'Debian'
+    - name: Install Apache Web Server CentOS
+      yum: name=httpd state=latest
+      when: ansible_os_family == 'RedHat'
