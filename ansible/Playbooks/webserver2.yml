@@ -11,16 +11,16 @@
     register: playbook_start
   - debug: var=playbook_start
   - name: Install Apache Web Server
-    yum: pkg=httpd state=latest
+    yum: name=httpd state=latest
     notify: Restart httpd
   - name: Check Web Server is Running
     command: systemctl status httpd
     register: check_httpd
   - debug: var=check_httpd
   - name: Install Telnet
-    yum: pkg=telnet state=latest
+    yum: name=telnet state=latest
   - name: Install Lynx
-    yum: pkg=lynx state=latest
+    yum: name=lynx state=latest
   - name: Log Packages Installed
     command: yum list installed
     register: packages_installed

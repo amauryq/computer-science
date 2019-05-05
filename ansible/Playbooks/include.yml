@@ -1,0 +1,10 @@
+--- # Include Playbook for Ansible
+- hosts: all
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - include: plays/packages.yml user=ansible
+    - name: Check Telnet Package is Installed
+      raw: yum list installed | grep telnet > /home/ansible/is_telnet_installed.log
