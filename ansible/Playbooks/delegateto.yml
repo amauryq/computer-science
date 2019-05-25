@@ -1,0 +1,13 @@
+--- # Delegate To Playbook for Ansible
+
+- hosts: local
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes
+  tasks:
+  - name: Run a remote ping on the server
+    command: ping -c 4 localhost
+    delegate_to: localhost
+  - name: Install Lynx Web Browser
+    yum: pkg=lynx state=latest
