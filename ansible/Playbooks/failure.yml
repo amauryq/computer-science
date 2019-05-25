@@ -1,0 +1,13 @@
+--- # Error Handling Example
+
+- hosts: webclient
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - name: Execute a Command that Fail
+      command: /bin/false
+      ignore_errors: yes
+    - name: Install Telnet
+      yum: name=telnet state=latest
