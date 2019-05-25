@@ -1,5 +1,5 @@
 --- # Web Palybook
-- hosts: webclient
+- hosts: localhost
   user: ansible
   become: yes
   connection: ssh
