@@ -10,4 +10,4 @@
       command: /bin/false
       ignore_errors: yes
     - name: Install Telnet
-      yum: name=telnet state=latest
+      yum: pkg=telnet state=latest
