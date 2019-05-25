@@ -1,0 +1,10 @@
+--- # Variables at Command Line Example
+# ansible-playbook from-cmd-line.yml --extra-vars "hosts=local user=ansible package=telnet"
+- hosts: '{{ hosts }}'
+  user: '{{ user }}'
+  become: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+  - name: Install {{ package }}
+    yum: pkg={{ package }} state=latest
