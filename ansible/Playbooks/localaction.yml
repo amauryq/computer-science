@@ -1,0 +1,11 @@
+--- # Local Action Demo
+
+- hosts: local
+  connection: ssh
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Ping Server before Install
+      local_action: command ping -c 4 localhost
+    - name: Install Lynx
+      yum: pkg=lynx state=latest

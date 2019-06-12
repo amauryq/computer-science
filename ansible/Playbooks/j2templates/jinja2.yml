@@ -1,0 +1,13 @@
+--- # Test Jinja2 Templates
+- hosts: local
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: yes
+  vars:
+    user_name: ansible
+    user_password: password123
+    connection_type: SFTP
+  tasks:
+    - name: Install Configuration File Customized for the System
+      template: src=test.conf.j2 dest=./test.conf owner=ansible group=ansible mode=750

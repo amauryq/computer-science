@@ -5,4 +5,4 @@
   - vars.yml
   tasks:
   - name: Install Lynx on App Servers
-    yum: name=lynx state=installed update_cache=true
+    yum: pkg=lynx state=installed update_cache=true
