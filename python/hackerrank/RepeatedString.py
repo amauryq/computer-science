@@ -8,19 +8,18 @@ import sys
 
 # Complete the repeatedString function below.
 def repeatedString(s, n):
-    count_a = 0
-    for a in s:
+    asn = 0
+    for a in s[0:n]:
         if a == 'a':
-            count_a = count_a + 1
+            asn = asn + 1
     num, den = divmod(n, len(s))
-    num = num * count_a
-    new_s = a[0:den]
-    new_count_a = 0
-    for a in new_s:
+    num = num * asn
+    new_asn = 0
+    for a in s[0:den]:
         if a == 'a':
-            new_count_a = new_count_a + 1
+            new_asn = new_asn + 1
 
-    return num + new_count_a
+    return num + new_asn
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
