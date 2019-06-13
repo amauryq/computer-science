@@ -276,13 +276,15 @@ After exit the container will still run
 Different ways of remove dangling or unused images
 
 ```bash
-docker rmi $(sudo docker images --filter "dangling=true" -q --no-trunc)
 
 # Remove all stopped containers
 docker rm $(docker ps -a -q)
 
-Remove all untagged images
+# Remove all untagged images
 docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
+
+# Remove dangling containers
+docker rmi $(sudo docker images --filter "dangling=true" -q --no-trunc)
 ```
 
 
