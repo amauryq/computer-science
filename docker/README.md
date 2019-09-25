@@ -195,6 +195,9 @@ docker network create --subnet 10.1.0.0/24 --gateway 10.1.0.1 <name>
 docker network create --subnet 10.1.0.0/16 --gateway 10.1.0.1 --ip-range=10.1.4.0/24 --driver=bridge --label=<network_label> <name>
 docker network create --subnet 10.1.0.0/16 --gateway 10.1.0.1 --ip-range=10.1.4.0/24 --ip 10.1.4.100 --driver=bridge --label=<network_label> <name>
 docker network inspect <id|name>
+
+docker volume ls
+
 # review with ifconfig
 docker run -it --name <name> --net <network_name> centos /bin/bash
 
@@ -286,6 +289,14 @@ docker rmi $(docker images | grep '^<none>' | awk '{print $3}')
 # Remove dangling containers
 docker rmi $(sudo docker images --filter "dangling=true" -q --no-trunc)
 ```
+
+Different ways of remove dangling or unused volumes
+
+```bash
+docker volume prune
+docker volume ls -f dangling=true
+```
+
 
 
 
