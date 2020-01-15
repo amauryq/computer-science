@@ -124,5 +124,7 @@ add ath the end: script -f -q -a /home/${USER}/user.log
 
 # Get timestamp in bash
 
+bash```
 now=$(($(date +%s%N)/1000000))
 echo $now
+```
