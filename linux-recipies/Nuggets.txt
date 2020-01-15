@@ -122,4 +122,7 @@ add ath the end: script -f -q -a /home/${USER}/user.log
 
 # Setting Local and Global Java Environment Variables
 
+# Get timestamp in bash
 
+now=$(($(date +%s%N)/1000000))
+echo $now
