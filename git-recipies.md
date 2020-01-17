@@ -1,6 +1,6 @@
 # Git Recipies
 
-## Update loca list of remote branch
+## Update local list of remote branch
 
 ```bash
 git remote update origin --prune
