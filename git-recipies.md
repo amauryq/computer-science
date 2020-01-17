@@ -3,14 +3,14 @@
 ## Update local list of remote branch
 
 ```bash
-git remote update origin --prune
-git branch -a
+$ git remote update origin --prune
+$ git branch -a
 ```
 
 ## Download a full GitHub Organization
 
 ```bash
-curl "https://github.com/api/v3/orgs/ORGANIZATION/repos?per_page=200&access_token=<access-token>" |   grep -e 'ssh_url*' |   cut -d \" -f 4 |   xargs -L1 git clone
+$ curl "https://github.com/api/v3/orgs/ORGANIZATION/repos?per_page=200&access_token=<access-token>" |   grep -e 'ssh_url*' |   cut -d \" -f 4 |   xargs -L1 git clone
 ```
 
 ## Mirroring a repository
