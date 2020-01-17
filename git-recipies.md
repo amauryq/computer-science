@@ -1,5 +1,11 @@
 # Git Recipies
 
+## Update loca list of remote branch
+
+```bash
+git remote update origin --prune
+```
+
 ## Download a full GitHub Organization
 
 ```bash
