@@ -4,6 +4,7 @@
 
 ```bash
 git remote update origin --prune
+git branch -a
 ```
 
 ## Download a full GitHub Organization
