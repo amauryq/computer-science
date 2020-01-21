@@ -13,6 +13,18 @@ $ git branch -a
 $ curl "https://github.com/api/v3/orgs/ORGANIZATION/repos?per_page=200&access_token=<access-token>" |   grep -e 'ssh_url*' |   cut -d \" -f 4 |   xargs -L1 git clone
 ```
 
+## Remove local git tags that are no longer on the remote repository
+
+```bash
+# list tags from remote
+git ls-remote --tags origin
+# same format than git tag -l
+git ls-remote --tags origin | git show-ref --tags --exclude-existing
+## delete all and then get remote
+git tag -l | xargs git tag -d
+git fetch --tags
+```
+
 ## Mirroring a repository
 
 ### Create a bare clone of the repository
