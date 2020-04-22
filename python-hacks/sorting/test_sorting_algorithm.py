@@ -10,3 +10,5 @@ if __name__ == "__main__":
     
     run_sorting_algorithm(algorithm="sorted", array=array)
     # run_sorting_algorithm(algorithm="insertion_sort", array=array)
+    # run_sorting_algorithm(algorithm="merge_sort", array=array)
+    # run_sorting_algorithm(algorithm="quicksort", array=array)
