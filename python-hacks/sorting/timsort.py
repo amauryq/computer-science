@@ -6,7 +6,7 @@ def timsort(array):
     # input array. The size of these slices is defined by
     # your `min_run` size.
     for i in range(0, n, min_run):
-        insertion_sort(array, i, min((i + min_run - 1), n - 1))
+        insertion_sort_tim(array, i, min((i + min_run - 1), n - 1))
 
     # Now you can start merging the sorted slices.
     # Start from `min_run`, doubling the size on
