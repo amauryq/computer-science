@@ -9,6 +9,7 @@ if __name__ == "__main__":
     # and the array you just created
     
     run_sorting_algorithm(algorithm="sorted", array=array)
-    # run_sorting_algorithm(algorithm="insertion_sort", array=array)
-    # run_sorting_algorithm(algorithm="merge_sort", array=array)
-    # run_sorting_algorithm(algorithm="quicksort", array=array)
+    run_sorting_algorithm(algorithm="insertion_sort", array=array)
+    run_sorting_algorithm(algorithm="merge_sort", array=array)
+    run_sorting_algorithm(algorithm="quicksort", array=array)
+    run_sorting_algorithm(algorithm="timsort", array=array)
