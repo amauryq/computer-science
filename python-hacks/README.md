@@ -20,3 +20,18 @@ for value in collection:
 >>> even_squares
 [0, 4, 16, 36, 64]
 ```
+
+## Sorting
+
+```python
+student_tuples = [
+    ('john', 'A', 15),
+    ('jane', 'B', 12),
+    ('dave', 'B', 10),
+]
+
+sorted(student_tuples, key=lambda student: student[2])   # sort by age
+
+>>> output
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+```
