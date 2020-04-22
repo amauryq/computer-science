@@ -17,7 +17,7 @@ def insertion_sort_tim(array, left=0, right=None):
         # Run through the list of items (the left
         # portion of the array) and find the correct position
         # of the element referenced by `key_item`. Do this only
-        # if the `key_item` is smaller than its adjacent values.
+        # if `key_item` is smaller than its adjacent values.
         while j >= left and array[j] > key_item:
             # Shift the value one position to the left
             # and reposition `j` to point to the next element
@@ -26,7 +26,8 @@ def insertion_sort_tim(array, left=0, right=None):
             j -= 1
 
         # When you finish shifting the elements, position
-        # the `key_item` in its correct location
+        # `key_item` in its correct location
         array[j + 1] = key_item
 
     return array
+    

@@ -17,12 +17,12 @@ def insertion_sort(array):
         # if `key_item` is smaller than its adjacent values.
         while j >= 0 and array[j] > key_item:
             # Shift the value one position to the left
-            # and reposition j to point to the next element
+            # and reposition `j` to point to the next element
             # (from right to left)
             array[j + 1] = array[j]
             j -= 1
 
-        # When you finish shifting the elements, you can position
+        # When you finish shifting the elements, position
         # `key_item` in its correct location
         array[j + 1] = key_item
 

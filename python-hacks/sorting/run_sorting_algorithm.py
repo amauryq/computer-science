@@ -5,7 +5,7 @@ def run_sorting_algorithm(algorithm, array):
     # Set up the context and prepare the call to the specified
     # algorithm using the supplied array. Only import the
     # algorithm function if it's not the built-in `sorted()`.
-    setup_code = f"from __main__ import {algorithm}" \
+    setup_code = f"from {algorithm} import {algorithm}" \
         if algorithm != "sorted" else ""
 
     stmt = f"{algorithm}({array})"

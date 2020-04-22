@@ -1,3 +1,7 @@
+from random import randint
+
+from run_sorting_algorithm import run_sorting_algorithm
+
 ARRAY_LENGTH = 10000
 
 if __name__ == "__main__":
@@ -9,6 +13,7 @@ if __name__ == "__main__":
     # and the array you just created
     
     run_sorting_algorithm(algorithm="sorted", array=array)
+    run_sorting_algorithm(algorithm="bubble_sort", array=array)
     run_sorting_algorithm(algorithm="insertion_sort", array=array)
     run_sorting_algorithm(algorithm="merge_sort", array=array)
     run_sorting_algorithm(algorithm="quicksort", array=array)
