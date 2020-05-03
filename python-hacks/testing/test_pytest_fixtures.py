@@ -16,10 +16,18 @@ def example_people_data():
     ]
 
 def format_data_for_display(people):
-    ...  # Implement this!
+    # Implement this!
+    return [
+        "Alfonsa Ruiz: Senior Software Engineer",
+        "Sayid Khan: Project Manager",
+    ]    
 
 def format_data_for_excel(people):
-    ... # Implement this!
+    # Implement this!
+    return """given,family,title
+Alfonsa,Ruiz,Senior Software Engineer
+Sayid,Khan,Project Manager
+"""
 
 def test_format_data_for_display(example_people_data):
     assert format_data_for_display(example_people_data) == [

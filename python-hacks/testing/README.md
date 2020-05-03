@@ -1,7 +1,23 @@
 # Python Testing
 
-## How to Install pytest
+## unittest
 
-```bash
+### Run unittest
+
+```sh
+python -m unittest discover
+```
+
+## pytest
+
+### How to Install pytest
+
+```sh
 python -m pip install pytest
+```
+
+## Run pytest
+
+```sh
+pytest
 ```
