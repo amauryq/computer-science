@@ -1,5 +1,11 @@
 # Git Recipies
 
+## CRLF
+
+```
+$ git config core.autocrlf true
+```
+
 ## Update local list of remote branch
 
 ```bash
