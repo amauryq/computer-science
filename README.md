@@ -30,3 +30,6 @@ sequenceDiagram
     Bob-->>John: Jolly good!
 ```
 
+### Reference
+
+https://mermaid-js.github.io/mermaid/#/
