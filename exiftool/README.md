@@ -51,3 +51,6 @@ exiftool -progress -overwrite_original -api largefilesupport=1 "-ComPanasonicPro
 ```
 exiftool -progress -api largefilesupport=1 -FileName -CreateDate -ModifyDate -FileCreateDate -FileModifyDate -TrackCreateDate -TrackModifyDate -MediaCreateDate -MediaModifyDate -T -w+! %d/out.txt -r .
 ```
+
+[More examples](https://exiftool.org/examples.html)
+
