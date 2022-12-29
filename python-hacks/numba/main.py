@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # https://numba.pydata.org/
 
 import numba
@@ -36,22 +38,12 @@ def logistic_regression(Y, X, w, iterations):
     return w
 
 
-@njit
-def main():
-    print(f"numba v:{numba.__version__}")
-    repeat = 1000000000
-    num = 1
-    a = 0
-    for a in range(repeat):
-        num = num + num - num
-    print(num)
+"""compare the use of numba with regular python"""
 
-
-start = time.time()
-monte_carlo_pi(10000000)
-end = time.time()
-print(f"montecarlo_pi(10000000) done in {end - start} secs")
-start = time.time()
-monte_carlo_pi_njit(10000000)
-end = time.time()
-print(f"montecarlo_pi_njit(10000000) done in {end - start} secs")
+print(f"numba v:{numba.__version__}")
+times = 10000000
+for f in [monte_carlo_pi, monte_carlo_pi_njit]:
+    start = time.time()
+    f(times)
+    end = time.time()
+    print(f"{f}({times}) done in {end - start}s")
