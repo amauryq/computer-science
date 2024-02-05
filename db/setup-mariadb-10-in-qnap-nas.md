@@ -68,6 +68,12 @@ select category, round(sum(amount)) as total_amount
 from minttxs
 where year(date) = 2023 and transaction_type = 'debit'
 group by category;
+
+with the_rows as 
+(select * from minttxs
+where year(date) = 2023 and (description like '%Lakeview%' or description like '%Renovations Property%')
+order by date ASC)
+select sum(the_rows.amount) as total_amount from the_rows
 ```
 
 ## References
