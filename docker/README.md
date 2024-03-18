@@ -2,7 +2,7 @@
 
 ## Installation
 
-```bash
+```sh
 sudo yum install -y yum-utils lvm2 device-mapper-persistent-data
 
 rpm -qa | grep -e yum-utils -e lvm2 -e device-mapper-persistent-data
@@ -28,7 +28,7 @@ grep docker /etc/group
 
 Logout and login again
 
-```bash
+```sh
 docker run hello-world
 
 docker pull alpine:latest
@@ -42,7 +42,6 @@ docker images | grep nginx
 docker history nginx:1.15 [--quiet][--no-trunc]
 
 docker run -it --name="test_ssh" -p 8022:22 docker.io/centos:6 /bin/bash
-
 ```
 
 ## Make changes to a docker images
@@ -50,56 +49,66 @@ docker run -it --name="test_ssh" -p 8022:22 docker.io/centos:6 /bin/bash
 ### 1. Directly creating or modifying an image
 
 Get the image and run it
-```bash
+
+```sh
 docker pull ubuntu
 docker run -it ubuntu /bin/bash
 ```
 
 Install required software and exit
-```bash
+
+```sh
 apt install python
 exit
 ```
 
 Make changes persistent
-```bash
+
+```sh
 docker commit -m "install python" -a "amauryq@mail.com" <id|name> amauryq/ubuntu_python:v1
 ```
 
 The new image must be shown
-```bash
+
+```sh
 docker images
 ```
 
 Run the container based on the image
-```bash
+
+```sh
 docker run -it amauryq/ubuntu_python:v1 /bin/bash
 ```
 
 Verify python is already installed
-```bash
+
+```sh
 python --version
 ```
 
 Save container to a file
-```bash
+
+```sh
 docker save --output centos.latest.tar centos:latest
 gzip centos.latest.tar
 ```
 
 Load container from a file
-```bash
+
+```sh
 docker load --input centos.latest.tar.gz
 ```
 
 Tag a container, creates a new reference to the same image
-```bash
+
+```sh
 docker tag <id> <new-name-with-tag>
 docker tag <name_with_tag> <new_name_with_tag>
 ```
 
 Push a container image to Docker Hub
-```bash
+
+```sh
 docker pull centos:latest
 docker tag centos:latest amauryq/my-centos7:latest
 docker login --username amauryq
@@ -123,47 +132,55 @@ Create a Dockerfile
 > RUN apt install -y telnet openssh-server
 
 Build the image and run
-```bash
+
+```sh
 docker build -t "amauryq/ubuntu_telnet_ssh:v2" .
 ```
 
 The new docker images must be available and you can run it
-```bash
+
+```sh
 docker run -it amauryq/ubuntu_telnet_ssh:v2 /bin/bash
 ```
 
 ## Exposing our Container with Port Redirects
 
 Pull the image and run it
-```bash
+
+```sh
 docker pull nginx:latest
 docker run -d nginx:latest
 ```
 
 Look for the container IP address
-```bash
+
+```sh
 docker inspect <id|name> | grep IP
 ```
 
 This works
-```bash
+
+```sh
 elinks http://172.17.0.2
 ```
 
 This doesn't work because ports are note exposed
-```bash
+
+```sh
 elinks http://localhost
 ```
 
 Expose ports
-```bash
+
+```sh
 docker run -d -p 80:80 nginx:latest
 ```
 
 Now using localhost works
 
-Exposing port toonly one interfact 
-```bash
+Exposing port to only one interfact 
+
+```sh
 docker run -d -p 127.0.0.1:80:80 nginx:latest
 #Just bind udp protocol
 docker run -d -p 127.0.0.1:80:80/udp nginx:latest
@@ -171,7 +188,7 @@ docker run -d -p 127.0.0.1:80:80/udp nginx:latest
 
 ## Docker Useful Commands
 
-```bash
+```sh
 docker version
 docker info
 docker ps -a
@@ -186,7 +203,6 @@ docker stop <id|name>
 docker kill <id|name>
 docker restart <id|name>
 docker rm <id|name> [-q | wc -l][-f]
-docker rm `docker ps -a -q`
 docker rmi <id|name> [-f]
 
 docker network ls --no-trunc
@@ -216,36 +232,55 @@ docker run -it --dns=8.8.8.8 --dns-search="mydomain.local" --name="mycontainer1"
 cat /etc/resolv.conf 
 search mydomain.local
 df -h
+
+# attach to an existing network
+docker run --rm --name netshoot --network frontend -it nicolaka/netshoot /bin/bash
+```
+
+Docker Context Handling
+
+```sh
+docker context list
+docker context create ironhide --description "docker on ironhide" --docker "host=ssh://ironhide.maliam.local"
+docker context use ironhide
+docker cp default.html nginx-eval-1:/usr/share/nginx/html/index.html
 ```
 
 Run demonized and then attach to it
-```bash
+
+```sh
 docker run -i -t -d ubuntu:xenial /bin/bash -e JAVA_HOME /opt/java -e JRE_HOME /opt/java
 docker attach <id|name>
 ```
 
 Execute a command in a running docker and stop it
-```bash
+
+```sh
 docker exec <id|name> /bin/cat /etc/profile
 docker stop <id|name>
 ```
 
 View how logs populate when running a container
-```bash
+
+```sh
 docker run -d ubuntu:xenial /bin/bash -c "while true;do echo Hello;sleep 1;done"
 
 # check if lines count are increasing
 docker logs <id|name> | wc -l
+docker logs nginx-eval-1 -f
+docker logs nginx-eval-1 2>&1 | grep -E "error.*middleware"
 ```
 
 View events on containers
-```bash
+
+```sh
 docker events [--since '1h']
 docker events --filter event=attach --filter event=die --filter event=stop
 ```
 
 Attach a volume to the container
-```bash
+
+```sh
 docker run -it --name <name> -v <local_folder>:<container_folder> centos7/echo:v1 /bin/bash
 ```
 
@@ -263,13 +298,15 @@ Create a Dockerfile
 >USER user
 
 Build the image and run
-```bash
+
+```sh
 docker build -t centos7/nonroot:v1 .
 docker run -it centos7/nonroot:v1 /bin/bash
 ```
 
 When exit, start again the container and login as root
-```bash
+
+```sh
 docker start <id|name>
 docker exec -u 0 -it <id|name> /bin/bash
 ```
@@ -278,8 +315,7 @@ After exit the container will still run
 
 Different ways of remove dangling or unused images
 
-```bash
-
+```sh
 # Remove all stopped containers
 docker rm $(docker ps -a -q)
 
@@ -292,11 +328,12 @@ docker rmi $(sudo docker images --filter "dangling=true" -q --no-trunc)
 
 Different ways of remove dangling or unused volumes
 
-```bash
-docker volume prune
+```sh
 docker volume ls -f dangling=true
 ```
 
+Remove all container images and volumes
 
-
-
+```sh
+docker system prune -f && docker image prune -f --all && docker volume prune -f --all
+```
